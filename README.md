@@ -9,3 +9,179 @@ Add `kitconcept.api` as a requirement of your package (in setup.py or setup.cfg)
 ## Usage
 
 Replace, in your codebase, occurrences of `from plone import api` with `from kitconcept import api`.
+
+## Inclusion of api.addon
+### api.addon.get_addons
+
+Return a list of addons (`kitconcept.api._typing.AddonInformation`) in the installation.
+
+Example:
+```python
+from kitconcept import api
+from kitconcept.api._typing import AddonInformation
+
+
+addons = api.addon.get_addons()
+
+# List of AddonInformation
+assert isinstance(addons, list)
+assert isinstance(addons[0], AddonInformation)
+```
+
+It is possible to filter the addons using the parameter `limit`:
+```python
+from kitconcept import api
+
+
+# Return all valid addons
+all_addons = api.addon.get_addons()
+
+# Only installed addons
+installed_addons = api.addon.get_addons(limit="installed")
+
+# Only upgradable (already installed) addons
+upgradable_addons = api.addon.get_addons(limit="upgradable")
+
+# Available addons -- not installed
+available_addons = api.addon.get_addons(limit="available")
+
+# It is also possible to get addons not available in the UI
+# Only broken addons (with installation problems)
+broken_addons = api.addon.get_addons(limit="broken")
+
+# Only non-installable addons
+broken_addons = api.addon.get_addons(limit="non_installable")
+```
+
+### api.addon.get_addons_ids
+
+Similar to `api.addon.get_addons`, but return only the addon ids.
+
+Example:
+```python
+from kitconcept import api
+
+
+addons_ids = api.addon.get_addons_ids()
+
+# List of str
+assert isinstance(addons_ids, list)
+assert isinstance(addons_ids[0], str)
+```
+
+### api.addon.get
+
+Get information about one addon.
+
+Example:
+```python
+from kitconcept import api
+
+
+# Get information about plone.restapi
+addon = api.addon.get("plone.restapi")
+assert addon.id, "plone.restapi"
+assert addon.valid is True
+assert addon.description == "RESTful hypermedia API for Plone."
+assert addon.profile_type == "default"
+assert addon.version == "8.21.0"
+```
+
+### api.addon.install
+
+Install an addon
+
+Example:
+```python
+from kitconcept import api
+
+
+status = api.addon.install("plone.restapi")
+assert status is True
+assert "plone.restapi" in api.addon.get_addons_ids(limit="installed")
+```
+
+### api.addon.uninstall
+
+Uninstall an addon
+
+Example:
+```python
+from kitconcept import api
+
+
+status = api.addon.uninstall("plone.restapi")
+assert status is True
+assert "plone.restapi" in api.addon.get_addons_ids(limit="available")
+```
+
+## Additions to api.content
+### api.content.get_constrains
+
+Get constrains -- limits -- of a folderish content.
+
+Example:
+```python
+from kitconcept import api
+
+
+constrains = api.content.get_constrains(obj)
+
+# Constrains are not enabled by default
+assert constrains.mode == "disabled"
+
+# Document is allowed to be added to obj
+assert "Document" in constrains.allowed_types
+
+# Document is a prefered type to be added to obj
+assert "Document" in constrains.immediately_addable_types
+```
+### api.content.set_constrains
+
+Set constrains -- limits -- of a folderish content.
+
+Example:
+```python
+from kitconcept import api
+
+
+constrains = api.content.set_constrains(
+    obj,
+    mode="enabled",
+    allowed_types=["Folder", "Image"],
+    immediately_addable_types=[
+        "Image",
+    ],
+)
+
+# Constrains now enabled
+assert constrains.mode == "enabled"
+
+# Folder and Image are allowed to be added to obj
+assert "Folder" in constrains.allowed_types
+assert "Image" in constrains.allowed_types
+
+# Image is a prefered type to be added to obj
+assert "Image" in constrains.immediately_addable_types
+```
+
+### api.content.serialize
+
+Serialize an object, using the serializers defined in plone.restapi.
+
+Example:
+```python
+from kitconcept import api
+
+
+portal = api.portal.get()
+data = api.content.serialize(portal)
+
+# data is a dictionary
+assert isinstance(data, dict)
+
+# We have the serialized info
+assert data["@type"] == "Plone Site"
+assert data["id"] == "plone"
+assert data["title"] == "Site"
+```
