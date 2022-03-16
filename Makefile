@@ -86,7 +86,7 @@ build: bin/mkwsgiinstance ## Create virtualenv and run buildout
 	@echo "$(GREEN)==> Setup Build$(RESET)"
 	bin/pip install -r requirements.txt
 
-.PHONY: build
+.PHONY: build-dev
 build-dev: bin/mkwsgiinstance ## Create virtualenv and run buildout
 	@echo "$(GREEN)==> Setup Build$(RESET)"
 	bin/pip install -r requirements/dev.txt
@@ -142,3 +142,15 @@ test_quiet: ## run tests removing deprecation warnings
 .PHONY: start
 start: ## Start a Plone instance on localhost:8080
 	PYTHONWARNINGS=ignore ./bin/runwsgi etc/zope.ini
+
+
+# CI
+.PHONY: ci-build
+ci-build: ## Install package in Github Actions
+	@echo "$(GREEN)==> Install package$(RESET)"
+	pip install -r requirements/dev.txt
+
+.PHONY: ci-test
+ci-test: ## Test package in Github Actions
+	@echo "$(GREEN)==> Run tests$(RESET)"
+	PYTHONWARNINGS=ignore zope-testrunner --auto-color --auto-progress --test-path src/

@@ -1,0 +1,36 @@
+name: Test the Backend code
+
+on:
+  push:
+    paths:
+      - "backend/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python:
+          - "3.8"
+        plone:
+          - "5.2.6"
+          - "6.0.0a3"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
+        id: setup
+        uses: plone/setup-plone@v1.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          plone-version: ${{ matrix.plone }}
+
+      - name: Install package
+        run: |
+          make ci-build
+
+      - name: Run tests
+        run: |
+          make ci-test
