@@ -1,5 +1,5 @@
 """Manage constrains on plone content objects."""
-from dataclasses import dataclass
+from kitconcept.api._typing import ConstrainInformation
 from plone.api.exc import InvalidParameterError
 from plone.api.exc import MissingParameterError
 from plone.api.validation import required_parameters
@@ -16,15 +16,6 @@ MODES = {
 
 
 REVERSE_MODES = {value: key for key, value in MODES.items()}
-
-
-@dataclass
-class ConstrainInformation:
-    """Constrain information for an object."""
-
-    mode: str
-    allowed_types: List[str]
-    immediately_addable_types: List[str]
 
 
 def _get_behavior(obj: DexterityContent) -> ISelectableConstrainTypes:

@@ -1,5 +1,4 @@
 """Facade for plone.api.content."""
-from ._constrains import ConstrainInformation
 from ._constrains import get_constrains
 from ._constrains import set_constrains
 from ._serialize import serialize
@@ -19,7 +18,6 @@ from plone.api.content import transition
 
 
 __all__ = (
-    "ConstrainInformation",
     "copy",
     "create",
     "delete",

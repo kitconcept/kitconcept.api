@@ -1,6 +1,5 @@
 """Implement api methods for redirection."""
-from dataclasses import dataclass
-from datetime import datetime
+from kitconcept.api._typing import Redirect
 from kitconcept.api.portal import get as get_portal
 from plone.api.validation import required_parameters
 from plone.app.redirector.interfaces import IRedirectionStorage
@@ -8,16 +7,6 @@ from plone.app.redirector.storage import RedirectionStorage
 from typing import List
 from typing import Optional
 from zope.component import getUtility
-
-
-@dataclass
-class Redirect:
-    """A redirect managed by Plone."""
-
-    old_path: str
-    new_path: str
-    created_at: Optional[datetime] = None
-    manual: bool = False
 
 
 def _redirection_storage() -> RedirectionStorage:

@@ -1,4 +1,5 @@
 """kitconcept.api package."""
+from kitconcept.api import addon
 from kitconcept.api import content
 from kitconcept.api import env
 from kitconcept.api import exc
@@ -10,6 +11,7 @@ from kitconcept.api import user
 
 
 __all__ = (
+    "addon",
     "content",
     "env",
     "exc",
