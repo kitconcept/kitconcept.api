@@ -50,11 +50,31 @@ clean-test: ## remove test and coverage artifacts
 	rm -f .coverage
 	rm -fr htmlcov/
 
+.PHONY: install-dev-tools
+install-dev-tools: bin/pip ## Install dev-tools
+	@echo "$(GREEN)==> Install dev tools$(RESET)"
+	bin/pip install -r requirements/dev-tools.txt
+
 bin/pip:
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
 	python -m venv .
 	bin/pip install -U pip
 	bin/pip install -U setuptools
+
+bin/black:
+	@make install-dev-tools
+
+bin/flakeheaven:
+	@make install-dev-tools
+
+bin/isort:
+	@make install-dev-tools
+
+bin/pyroma:
+	@make install-dev-tools
+
+bin/zpretty:
+	@make install-dev-tools
 
 bin/mkwsgiinstance:	bin/pip
 	@echo "$(GREEN)==> Install Plone and create instance$(RESET)"
@@ -72,30 +92,44 @@ build-dev: bin/mkwsgiinstance ## Create virtualenv and run buildout
 	bin/pip install -r requirements/dev.txt
 
 .PHONY: black
-black: ## Format codebase
+black: bin/black ## Format codebase
 	./bin/black $(CHECK_PATH)
 
 .PHONY: isort
-isort: ## Format imports in the codebase
+isort: bin/isort ## Format imports in the codebase
 	./bin/isort $(CHECK_PATH)
 
+.PHONY: zpretty
+zpretty: bin/zpretty ## Format ZCML and ZML code
+	find $(CHECK_PATH) -name *.zcml | xargs -r ./bin/zpretty -i -z
+	find $(CHECK_PATH) -name *.xml | xargs -r ./bin/zpretty -i -x
+
 .PHONY: format
-format: black isort ## Format the codebase according to our standards
+format: black isort zpretty ## Format the codebase according to our standards
 
 .PHONY: lint
-lint: lint-isort lint-black lint-flake8 ## check style with flake8
+lint: lint-isort lint-black lint-flake8 lint-pyroma lint-zpretty ## check style with flake8
 
 .PHONY: lint-black
-lint-black: ## validate black formating
+lint-black: bin/black ## validate black formating
 	./bin/black --check --diff $(CHECK_PATH)
 
 .PHONY: lint-flake8
-lint-flake8: ## validate flake8 formating
+lint-flake8: bin/flakeheaven ## validate flake8 formating
 	./bin/flakeheaven lint $(CHECK_PATH)
 
 .PHONY: lint-isort
-lint-isort: ## validate using isort
+lint-isort: bin/isort ## validate using isort
 	./bin/isort --check-only $(CHECK_PATH)
+
+.PHONY: lint-pyroma
+lint-pyroma: bin/pyroma ## validate using pyroma
+	./bin/pyroma -n 10 -d .
+
+.PHONY: lint-zpretty
+lint-zpretty: bin/zpretty ## validate using zpretty
+	find $(CHECK_PATH) -name *.zcml | xargs -r ./bin/zpretty -i -z --check
+	find $(CHECK_PATH) -name *.xml | xargs -r ./bin/zpretty -i -x --check
 
 .PHONY: test
 test: ## run tests
