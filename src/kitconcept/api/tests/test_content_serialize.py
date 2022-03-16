@@ -29,7 +29,19 @@ class TestAPIContentSerialize(unittest.TestCase):
         func = api.content.serialize
         data = func(self.portal)
         self.assertIsInstance(data, dict)
-        self.assertEqual(data["@id"], "http://nohost/plone")
+        self.assertEqual(data["@type"], "Plone Site")
+        self.assertEqual(data["id"], "plone")
+        self.assertEqual(data["title"], "Site")
+
+    def test_api_content_serialize_portal_plone_version_diff(self):
+        """Test api.content.serialize with portal as the content."""
+        func = api.content.serialize
+        data = func(self.portal)
+        self.assertIsInstance(data, dict)
+        if api.env.plone_version().startswith("5"):
+            self.assertEqual(data["@id"], "http://nohost")
+        else:
+            self.assertEqual(data["@id"], "http://nohost/plone")
 
     def test_api_content_serialize_document(self):
         """Test api.content.serialize with a document as the content."""

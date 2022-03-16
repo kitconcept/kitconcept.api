@@ -82,13 +82,20 @@ bin/mkwsgiinstance:	bin/pip
 	bin/mkwsgiinstance -d . -u admin:admin
 
 .PHONY: build
-build: bin/mkwsgiinstance ## Create virtualenv and run buildout
-	@echo "$(GREEN)==> Setup Build$(RESET)"
+build: bin/mkwsgiinstance ## Install Plone 6 and install the package
+	@echo "$(GREEN)==> Install Plone 6, create instance and install the package$(RESET)"
 	bin/pip install -r requirements.txt
 
 .PHONY: build-dev
-build-dev: bin/mkwsgiinstance ## Create virtualenv and run buildout
-	@echo "$(GREEN)==> Setup Build$(RESET)"
+build-dev: bin/mkwsgiinstance ## Install Plone 6 and install the package (with development packages)
+	@echo "$(GREEN)==> Install Plone 6, create instance and install the package$(RESET)"
+	bin/pip install -r requirements/dev.txt
+
+.PHONY: build-dev-5
+build-dev-5: bin/pip ## Install Plone 5.2 and install the package (with development packages)
+	@echo "$(GREEN)==> Install Plone 5.2, create instance and install the package$(RESET)"
+	bin/pip install -r requirements/plone5.txt
+	bin/mkwsgiinstance -d . -u admin:admin
 	bin/pip install -r requirements/dev.txt
 
 .PHONY: black
