@@ -1,9 +1,6 @@
-name: Test the Backend code
+name: Test the code
 
-on:
-  push:
-    paths:
-      - "backend/**"
+on: [push]
 
 jobs:
   build:
