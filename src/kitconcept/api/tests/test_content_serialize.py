@@ -1,6 +1,7 @@
 """Tests for kitconcept.api.content.serialize."""
 from kitconcept import api
 from kitconcept.api.testing import INTEGRATION_TESTING  # noqa: E501
+from plone.api.env import plone_version
 
 import unittest
 
@@ -38,7 +39,7 @@ class TestAPIContentSerialize(unittest.TestCase):
         func = api.content.serialize
         data = func(self.portal)
         self.assertIsInstance(data, dict)
-        if api.env.plone_version().startswith("5"):
+        if plone_version().startswith("5"):
             self.assertEqual(data["@id"], "http://nohost")
         else:
             self.assertEqual(data["@id"], "http://nohost/plone")
