@@ -8,6 +8,7 @@ from kitconcept.api import portal
 from kitconcept.api import redirection
 from kitconcept.api import relation
 from kitconcept.api import user
+from kitconcept.api import vocabulary
 
 
 __all__ = (
@@ -20,4 +21,5 @@ __all__ = (
     "redirection",
     "relation",
     "user",
+    "vocabulary",
 )
