@@ -185,3 +185,38 @@ assert data["@type"] == "Plone Site"
 assert data["id"] == "plone"
 assert data["title"] == "Site"
 ```
+
+## Inclusion of api.vocabulary
+
+### api.vocabulary.get_vocabulary_names
+
+Return a list of names for all vocabularies
+
+Example:
+```python
+from kitconcept import api
+
+
+vocabularies = api.addon.get_vocabulary_names()
+
+# List of str
+assert isinstance(vocabularies, list)
+assert isinstance(vocabularies[0], str)
+assert "plone.app.vocabularies.Month" in vocabularies
+```
+
+### api.vocabulary.get
+
+Get one vocabulary.
+
+Example:
+```python
+from kitconcept import api
+from zope.schema.vocabulary import SimpleVocabulary
+
+
+# Return one vocabulary
+vocabulary = api.vocabulary.get("plone.app.vocabularies.Month")
+assert isinstance(vocabulary, SimpleVocabulary)
+assert vocabulary.getTerm(0).title == "month_jan"
+```

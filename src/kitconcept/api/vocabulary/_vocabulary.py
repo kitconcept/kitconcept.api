@@ -1,11 +1,13 @@
 """Implement an api to access vocabularies."""
 from plone import api
+from plone.api.exc import InvalidParameterError
 from plone.api.validation import required_parameters
 from plone.dexterity.content import DexterityContent
 from typing import List
 from typing import Optional
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
+from zope.interface.interfaces import ComponentLookupError
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.interfaces import IVocabularyTokenized
 
@@ -20,11 +22,14 @@ def get(name: str, context: Optional[DexterityContent] = None) -> IVocabularyTok
     """
     if not context:
         context = api.portal.get()
-    vocab = getUtility(IVocabularyFactory, name)
+    try:
+        vocab = getUtility(IVocabularyFactory, name)
+    except ComponentLookupError:
+        raise InvalidParameterError(f"No vocabulary with name '{name}' available.")
     return vocab(context)
 
 
-def get_vocabularies() -> List[str]:
+def get_vocabularies_names() -> List[str]:
     """Return a list of vocabularies names.
 
     :return: A list of vocabularies names.
