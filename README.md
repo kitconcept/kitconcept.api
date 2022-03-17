@@ -1,6 +1,9 @@
+![kitconcept, GmbH](https://kitconcept.com/logo.svg)
+
 # kitconcept.api
 
 A facade enhancing the already amazing [plone.api](https://github.com/plone/plone.api).
+
 
 ## Installation
 
@@ -225,3 +228,14 @@ assert vocabulary.getTerm(0).title == "month_jan"
 * Get behaviors for FTI
 * api.concent.deserialize
 * plone.app.multilingual: Translations management
+
+
+## Status
+
+[![Build Status](https://github.com/kitconcept/kitconcept.api/actions/workflows/tests.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/tests.yml)
+
+[![Black](https://github.com/kitconcept/kitconcept.api/actions/workflows/black.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/black.yml)
+
+[![Flake8](https://github.com/kitconcept/kitconcept.api/actions/workflows/flake8.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/flake8.yml)
+
+[![iSort](https://github.com/kitconcept/kitconcept.api/actions/workflows/isort.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/isort.yml)
