@@ -5,7 +5,6 @@ flake8-builtins
 flake8-docstrings
 flakeheaven
 isort
-pyroma
 towncrier
 zest.releaser[recommended]
 zestreleaser.towncrier

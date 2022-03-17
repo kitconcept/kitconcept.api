@@ -70,9 +70,6 @@ bin/flakeheaven:
 bin/isort:
 	@make install-dev-tools
 
-bin/pyroma:
-	@make install-dev-tools
-
 bin/zpretty:
 	@make install-dev-tools
 
@@ -115,7 +112,7 @@ zpretty: bin/zpretty ## Format ZCML and ZML code
 format: black isort zpretty ## Format the codebase according to our standards
 
 .PHONY: lint
-lint: lint-isort lint-black lint-flake8 lint-pyroma lint-zpretty ## check style with flake8
+lint: lint-isort lint-black lint-flake8 lint-zpretty ## check style with flake8
 
 .PHONY: lint-black
 lint-black: bin/black ## validate black formating
@@ -128,10 +125,6 @@ lint-flake8: bin/flakeheaven ## validate flake8 formating
 .PHONY: lint-isort
 lint-isort: bin/isort ## validate using isort
 	./bin/isort --check-only $(CHECK_PATH)
-
-.PHONY: lint-pyroma
-lint-pyroma: bin/pyroma ## validate using pyroma
-	./bin/pyroma -n 10 -d .
 
 .PHONY: lint-zpretty
 lint-zpretty: bin/zpretty ## validate using zpretty
