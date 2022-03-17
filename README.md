@@ -220,3 +220,8 @@ vocabulary = api.vocabulary.get("plone.app.vocabularies.Month")
 assert isinstance(vocabulary, SimpleVocabulary)
 assert vocabulary.getTerm(0).title == "month_jan"
 ```
+## Wish List
+
+* Get behaviors for FTI
+* api.concent.deserialize
+* plone.app.multilingual: Translations management
