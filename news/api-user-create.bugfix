@@ -1,1 +1,0 @@
-Modify `plone.api.user.create` to have uuid4 for the id of newly created users [ericof]
