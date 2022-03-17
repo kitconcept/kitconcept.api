@@ -73,6 +73,9 @@ bin/isort:
 bin/zpretty:
 	@make install-dev-tools
 
+bin/towncrier:
+	@make install-dev-tools
+
 bin/mkwsgiinstance:	bin/pip
 	@echo "$(GREEN)==> Install Plone and create instance$(RESET)"
 	bin/pip install -r requirements/plone.txt
@@ -130,6 +133,10 @@ lint-isort: bin/isort ## validate using isort
 lint-zpretty: bin/zpretty ## validate using zpretty
 	find $(CHECK_PATH) -name *.zcml | xargs -r ./bin/zpretty -i -z --check
 	find $(CHECK_PATH) -name *.xml | xargs -r ./bin/zpretty -i -x --check
+
+.PHONY: verify-changelog
+verify-changelog: bin/towncrier ## Verify if there is a changelog for the change
+	./bin/towncrier check --compare-with origin/main
 
 .PHONY: test
 test: ## run tests
