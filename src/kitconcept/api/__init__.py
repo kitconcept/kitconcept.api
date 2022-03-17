@@ -10,6 +10,8 @@ from kitconcept.api import relation
 from kitconcept.api import user
 from kitconcept.api import vocabulary
 
+import pkg_resources
+
 
 __all__ = (
     "addon",
@@ -23,3 +25,5 @@ __all__ = (
     "user",
     "vocabulary",
 )
+
+__version__ = pkg_resources.get_distribution("kitconcept.api").version

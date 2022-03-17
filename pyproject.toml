@@ -34,7 +34,7 @@ package = "kitconcept.api"
 package_dir = "src"
 filename = "CHANGES.md"
 directory = "news/"
-title_format = "##{version} ({project_date})"
+title_format = "## {version} ({project_date})\n"
 start_string = "<!-- TOWNCRIER -->\n"
 # Custom Jinja2 template for preparing a new section of the Change Log.
 template = "news/template.md.j2"
@@ -42,20 +42,25 @@ underlines = ["", "##", "###"]
 
 [[tool.towncrier.type]]
 directory = "feature"
-name = "New features:"
+name = "Features"
 showcontent = true
 
 [[tool.towncrier.type]]
 directory = "bugfix"
-name = "Bug fixes:"
+name = "Bug fixes"
 showcontent = true
 
 [[tool.towncrier.type]]
 directory = "docs"
-name = "Documentation:"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "internal"
+name = "Internal"
 showcontent = true
 
 [[tool.towncrier.type]]
 directory = "trivial"
-name = "Other:"
+name = "Other"
 showcontent = true
