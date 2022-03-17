@@ -1,6 +1,6 @@
 """Tests for kitconcept.api.redirection methods."""
 from kitconcept import api
-from kitconcept.api.redirection import Redirect
+from kitconcept.api._typing import Redirect
 from kitconcept.api.testing import INTEGRATION_TESTING  # noqa: E501
 
 import unittest
