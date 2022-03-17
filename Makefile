@@ -136,7 +136,7 @@ lint-zpretty: bin/zpretty ## validate using zpretty
 
 .PHONY: verify-changelog
 verify-changelog: bin/towncrier ## Verify if there is a changelog for the change
-	./bin/towncrier check --compare-with main
+	./bin/towncrier check --compare-with origin/main
 
 .PHONY: test
 test: ## run tests
