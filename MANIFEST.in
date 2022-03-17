@@ -1,0 +1,4 @@
+  include *.md
+  include Makefile
+  recursive-include news *
+  recursive-include requirements *.txt
