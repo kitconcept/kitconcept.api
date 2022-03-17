@@ -30,7 +30,7 @@ show_source = true
 "flake8-*" = ["+*"]
 
 [tool.towncrier]
-package = "pendect.portal"
+package = "kitconcept.api"
 package_dir = "src"
 filename = "CHANGES.md"
 directory = "news/"
