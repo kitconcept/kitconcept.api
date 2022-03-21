@@ -3,6 +3,7 @@ from kitconcept.api import addon
 from kitconcept.api import content
 from kitconcept.api import env
 from kitconcept.api import exc
+from kitconcept.api import fti
 from kitconcept.api import group
 from kitconcept.api import portal
 from kitconcept.api import redirection
@@ -18,6 +19,7 @@ __all__ = (
     "content",
     "env",
     "exc",
+    "fti",
     "group",
     "portal",
     "redirection",

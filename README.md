@@ -189,6 +189,78 @@ assert data["id"] == "plone"
 assert data["title"] == "Site"
 ```
 
+## Inclusion of api.fti
+
+### api.fti.get_types
+
+Return a dictionary with all FTI's registered for the Portal.
+
+Example:
+```python
+from kitconcept import api
+from plone.dexterity.fti import DexterityFTI
+
+
+ftis = api.fti.get_types()
+
+# Dictionary with FTI
+assert isinstance(ftis, dict)
+# Document FTI should be present
+assert "Document" in ftis
+assert isinstance(ftis["Document"], DexterityFTI)
+```
+
+### api.fti.get
+
+Return a FTI for a type.
+
+Example:
+```python
+from kitconcept import api
+from plone.dexterity.fti import DexterityFTI
+
+
+fti = api.fti.get(type="Document")
+
+# FTI for Document content type
+assert isinstance(fti, DexterityFTI)
+assert fti.id == "Document
+```
+
+### api.fti.behaviors_for_type
+
+Return a list of behaviors for a type.
+
+Example:
+```python
+from kitconcept import api
+from plone.dexterity.fti import DexterityFTI
+
+
+behaviors = api.fti.behaviors_for_type(type="Document")
+
+# List of behaviors for Document
+assert isinstance(behaviors, list)
+assert "plone.dublincore" in behaviors
+```
+
+### api.fti.get_behavior_registration
+
+Return a list of behaviors for a type.
+
+Example:
+```python
+from kitconcept import api
+from plone.behavior.registration import BehaviorRegistration
+
+
+behavior = api.fti.get_behavior_registration(name="plone.dublincore")
+
+# Behavior registration info
+assert isinstance(behavior, BehaviorRegistration)
+assert behavior.title == "Dublin Core metadata"
+```
+
 ## Inclusion of api.vocabulary
 
 ### api.vocabulary.get_vocabulary_names
@@ -225,7 +297,6 @@ assert vocabulary.getTerm(0).title == "month_jan"
 ```
 ## Wish List
 
-* Get behaviors for FTI
 * api.concent.deserialize
 * plone.app.multilingual: Translations management
 
