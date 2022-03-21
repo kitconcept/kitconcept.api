@@ -2,6 +2,20 @@
 
 <!-- TOWNCRIER -->
 
+## 1.0.0a2 (2022-03-21)
+## 1.0.0a2 (2022-03-21)
+
+### Features
+
+- Implement api.fti [@ericof]
+  (#3)
+
+### Internal
+
+- Implement a workflow to verify if a news fragment was added to news/ on a Pull Request. [ericof]
+  (#1)
+
+
 ## 1.0.0a1 (2022-03-17)
 ## 1.0.0a1 (2022-03-17)
 
