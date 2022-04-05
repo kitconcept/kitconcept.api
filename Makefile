@@ -57,7 +57,7 @@ install-dev-tools: bin/pip ## Install dev-tools
 
 bin/pip:
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
-	python -m venv .
+	python3 -m venv .
 	bin/pip install -U pip
 	bin/pip install -U setuptools
 
@@ -84,7 +84,7 @@ bin/mkwsgiinstance:	bin/pip
 .PHONY: build
 build: bin/mkwsgiinstance ## Install Plone 6 and install the package
 	@echo "$(GREEN)==> Install Plone 6, create instance and install the package$(RESET)"
-	bin/pip install -r requirements.txt
+	bin/pip install -r requirements/dev.txt
 
 .PHONY: build-dev
 build-dev: bin/mkwsgiinstance ## Install Plone 6 and install the package (with development packages)
