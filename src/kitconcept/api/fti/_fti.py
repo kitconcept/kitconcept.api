@@ -84,7 +84,7 @@ def add_behavior_for_type(portal_type, behavior):
 
 @required_parameters("portal_type", "behavior")
 def remove_behavior_for_type(portal_type, behavior):
-    """Remove the given behavior from the given portal type.
+    """Removes the given behavior from the given portal type.
 
     :param portal_type: Name of the portal type.
     :param behavior: Name of the behavior.
