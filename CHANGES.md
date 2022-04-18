@@ -2,6 +2,15 @@
 
 <!-- TOWNCRIER -->
 
+## 1.0.0a3 (2022-04-18)
+## 1.0.0a3 (2022-04-18)
+
+### Features
+
+- Add/Remove behavior from FTI [sneridagh]
+  (#5)
+
+
 ## 1.0.0a2 (2022-03-21)
 ## 1.0.0a2 (2022-03-21)
 
