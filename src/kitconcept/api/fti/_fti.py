@@ -9,6 +9,7 @@ from typing import Dict
 from typing import List
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
+from zope.component import queryUtility
 from zope.interface.interfaces import ComponentLookupError
 
 
@@ -60,3 +61,39 @@ def get_behavior_registration(name: str) -> BehaviorRegistration:
             f"Behavior registration named {name} is not available."
         )
     return behavior
+
+
+@required_parameters("portal_type", "behavior")
+def add_behavior_for_type(portal_type, behavior):
+    """Add the given behavior to the given portal type.
+
+    :param portal_type: Name of the portal type.
+    :param behavior: Name of the behavior.
+    """
+    fti = queryUtility(IDexterityFTI, name=portal_type)
+    if fti is not None:
+        # This prevents to add the behavior twice
+        new = [
+            currentbehavior
+            for currentbehavior in fti.behaviors
+            if currentbehavior != behavior
+        ]
+        new.append(behavior)
+        fti.behaviors = tuple(new)
+
+
+@required_parameters("portal_type", "behavior")
+def remove_behavior_for_type(portal_type, behavior):
+    """Remove the given behavior from the given portal type.
+
+    :param portal_type: Name of the portal type.
+    :param behavior: Name of the behavior.
+    """
+    fti = queryUtility(IDexterityFTI, name=portal_type)
+    if fti is not None:
+        new = [
+            currentbehavior
+            for currentbehavior in fti.behaviors
+            if currentbehavior != behavior
+        ]
+        fti.behaviors = tuple(new)

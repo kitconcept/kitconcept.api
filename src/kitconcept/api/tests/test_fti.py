@@ -61,3 +61,15 @@ class TestAPIFti(unittest.TestCase):
         self.assertIn(
             "Behavior registration named foobar is not available.", str(cm.exception)
         )
+
+    def test_api_add_behavior_for_type(self):
+        """Test api.fti.add_behavior_for_type."""
+        api.fti.add_behavior_for_type("Document", "plone.leadimage")
+        doc_behaviors = api.fti.behaviors_for_type(type="Document")
+        self.assertIn("plone.leadimage", doc_behaviors)
+
+    def test_api_remove_behavior_for_type(self):
+        """Test api.fti.add_behavior_for_type."""
+        api.fti.remove_behavior_for_type("Document", "plone.allowdiscussion")
+        doc_behaviors = api.fti.behaviors_for_type(type="Document")
+        self.assertNotIn("plone.allowdiscussion", doc_behaviors)

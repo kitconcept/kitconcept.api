@@ -261,6 +261,38 @@ assert isinstance(behavior, BehaviorRegistration)
 assert behavior.title == "Dublin Core metadata"
 ```
 
+### api.fti.add_behavior_for_type
+
+Adds the given behavior to the given portal type.
+
+Example:
+```python
+from kitconcept import api
+
+api.fti.add_behavior_for_type("Document", "plone.leadimage")
+behaviors = api.fti.behaviors_for_type(type="Document")
+
+# List of behaviors for Document
+assert isinstance(behaviors, list)
+assert "plone.leadimage" in behaviors
+```
+
+### api.fti.remove_behavior_for_type
+
+Removes the given behavior from the given portal type.
+
+Example:
+```python
+from kitconcept import api
+
+api.fti.remove_behavior_for_type("Document", "plone.allowdiscussion")
+behaviors = api.fti.behaviors_for_type(type="Document")
+
+# List of behaviors for Document
+assert isinstance(behaviors, list)
+assert "plone.allowdiscussion" not in behaviors
+```
+
 ## Inclusion of api.vocabulary
 
 ### api.vocabulary.get_vocabulary_names
