@@ -1,9 +1,28 @@
-![kitconcept, GmbH](https://kitconcept.com/logo.svg)
+<div align="center"><img alt="logo" src="https://kitconcept.com/logo.svg" width="150" /></div>
 
-# kitconcept.api
+<h1 align="center">kitconcept.api</h1>
 
 A facade enhancing the already amazing [plone.api](https://github.com/plone/plone.api).
 
+<div align="center">
+
+[![PyPI](https://img.shields.io/pypi/v/kitconcept.api)](https://pypi.org/project/kitconcept.api/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/kitconcept.api)](https://pypi.org/project/kitconcept.api/)
+[![PyPI - Wheel](https://img.shields.io/pypi/wheel/kitconcept.api)](https://pypi.org/project/kitconcept.api/)
+[![PyPI - License](https://img.shields.io/pypi/l/kitconcept.api)](https://pypi.org/project/kitconcept.api/)
+[![PyPI - Status](https://img.shields.io/pypi/status/kitconcept.api)](https://pypi.org/project/kitconcept.api/)
+
+
+[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/kitconcept.api)](https://pypi.org/project/kitconcept.api/)
+
+[![Code analysis checks](https://github.com/kitconcept/kitconcept.api/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/code-analysis.yml)
+[![Tests](https://github.com/kitconcept/kitconcept.api/actions/workflows/tests.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/tests.yml)
+![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000)
+
+[![GitHub contributors](https://img.shields.io/github/contributors/kitconcept/kitconcept.api)](https://github.com/kitconcept/kitconcept.api)
+[![GitHub Repo stars](https://img.shields.io/github/stars/kitconcept/kitconcept.api?style=social)](https://github.com/kitconcept/kitconcept.api)
+
+</div>
 
 ## Installation
 
@@ -331,14 +350,3 @@ assert vocabulary.getTerm(0).title == "month_jan"
 
 * api.concent.deserialize
 * plone.app.multilingual: Translations management
-
-
-## Status
-
-[![Build Status](https://github.com/kitconcept/kitconcept.api/actions/workflows/tests.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/tests.yml)
-
-[![Black](https://github.com/kitconcept/kitconcept.api/actions/workflows/black.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/black.yml)
-
-[![Flake8](https://github.com/kitconcept/kitconcept.api/actions/workflows/flake8.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/flake8.yml)
-
-[![iSort](https://github.com/kitconcept/kitconcept.api/actions/workflows/isort.yml/badge.svg)](https://github.com/kitconcept/kitconcept.api/actions/workflows/isort.yml)

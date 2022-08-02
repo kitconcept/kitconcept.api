@@ -77,11 +77,6 @@ class TestAPIAddon(unittest.TestCase):
         result = api.addon.install("plone.restapi")
         self.assertTrue(result)
 
-    def test_api_uninstall_unavailable(self):
-        """Test api.addon.install unavailable addon."""
-        result = api.addon.install("Foobar")
-        self.assertFalse(result)
-
     def test_api_uninstall(self):
         """Test api.addon.uninstall."""
         # First install the addon
