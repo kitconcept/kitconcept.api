@@ -14,21 +14,6 @@ exclude = '''
 )
 '''
 
-[tool.isort]
-force_alphabetical_sort = true
-force_single_line = true
-lines_after_imports = 2
-line_length = 88
-
-[tool.flakeheaven]
-format = "grouped"
-max_line_length = 88
-show_source = true
-
-[tool.flakeheaven.plugins]
-# enable everything that starts from `flake8-`
-"flake8-*" = ["+*"]
-
 [tool.towncrier]
 package = "kitconcept.api"
 package_dir = "src"
@@ -64,3 +49,37 @@ showcontent = true
 directory = "trivial"
 name = "Other"
 showcontent = true
+
+[tool.check-manifest]
+ignore = [
+    "*.cfg",
+    ".coveragerc",
+    ".editorconfig",
+    ".gitattributes",
+]
+
+[tool.isort]
+profile = "black"
+force_alphabetical_sort = true
+force_single_line = true
+lines_after_imports = 2
+line_length = 88
+
+[tool.flakeheaven]
+format="grouped"
+max_line_length=88
+show_source=true
+exclude = ["README.md"]
+max-complexity=25
+
+[tool.flakeheaven.plugins]
+# Disable some checks.
+# - E501 line too long
+#   flake8 is already testing this, with max-line-length=100000 in .flake8,
+#   so pycodestyle should not test it.
+# - W503 line break before binary operator
+#   Outdated recommendation, see https://www.flake8rules.com/rules/W503.html
+mccabe = ["+*"]
+pycodestyle = ["+*", "-E501", "-W503"]
+pyflakes = ["+*"]
+pylint = ["+*"]

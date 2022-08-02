@@ -1,3 +1,4 @@
+
 name: Test the code
 
 on: [push]
@@ -9,25 +10,32 @@ jobs:
       fail-fast: false
       matrix:
         python:
-          - "3.8"
+          - 3.7
+          - 3.8
+          - 3.9
         plone:
-          - "5.2.7"
-          - "6.0.0a3"
+          - "6.0-latest"
+          - "5.2-latest"
+        exclude:
+          - plone: "5.2-latest"
+            python: 3.9
 
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
-        id: setup
-        uses: plone/setup-plone@v1.0.0
-        with:
-          python-version: ${{ matrix.python }}
-          plone-version: ${{ matrix.plone }}
+    - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
+      id: setup
+      uses: plone/setup-plone@v1.0.0
+      with:
+        python-version: ${{ matrix.python }}
+        plone-version: ${{ matrix.plone }}
 
-      - name: Install package
-        run: |
-          make ci-build
+    # Install kitconcept.api with test extras
+    - name: Install kitconcept.api
+      run: |
+        pip install ".[test]"
 
-      - name: Run tests
-        run: |
-          make ci-test
+    # test
+    - name: Test Codebase
+      run: |
+        zope-testrunner --auto-color --auto-progress --test-path src
