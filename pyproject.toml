@@ -83,3 +83,8 @@ mccabe = ["+*"]
 pycodestyle = ["+*", "-E501", "-W503"]
 pyflakes = ["+*"]
 pylint = ["+*"]
+
+[tool.plone-code-analysis]
+checkers = ["black", "flake8", "isort", "pyroma", "zpretty"]
+formatters = ["black", "isort", "zpretty"]
+paths = "setup.py src/"
