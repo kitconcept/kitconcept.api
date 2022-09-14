@@ -2,6 +2,19 @@
 
 <!-- TOWNCRIER -->
 
+## 1.0.0a4 (2022-09-14)
+
+### Features
+
+- api.user.create accepts user_id parameter [ericof]
+  (#9)
+
+### Internal
+
+- Refactor repository to use plone/code-analysis-action@v2 [ericof]
+  (#7)
+
+
 ## 1.0.0a3 (2022-04-18)
 
 ### Features
