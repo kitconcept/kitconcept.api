@@ -68,12 +68,15 @@ def create(
     properties.update({"username": username, "email": email, "created_at": DateTime()})
     # Create the user using portal_registration
     registration = api.portal.get_tool("portal_registration")
-    registration.addMember(  # noQA
-        user_id,
-        password,
-        roles,
-        properties=properties,
-    )
+    try:
+        registration.addMember(  # noQA
+            user_id,
+            password,
+            roles,
+            properties=properties,
+        )
+    except ValueError as exc:
+        raise InvalidParameterError(str(exc))
     # Get current user
     user = api.user.get(userid=user_id)
     # Update login name
