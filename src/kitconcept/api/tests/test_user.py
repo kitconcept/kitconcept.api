@@ -1,4 +1,5 @@
 """Tests for kitconcept.api.user methods."""
+from copy import deepcopy
 from kitconcept import api
 from kitconcept.api.testing import INTEGRATION_TESTING  # noqa: E501
 
@@ -39,6 +40,27 @@ class TestAPIUser(unittest.TestCase):
         self.assertEqual(user.getProperty("email"), payload["email"])
         self.assertEqual(user.getProperty("location"), props["location"])
         self.assertNotEqual(user.getId(), user.getUserName())
+
+    def test_api_user_create_with_user_id(self):
+        """Test api.user.create passing user_id."""
+        func = api.user.create
+        payload = deepcopy(self.user_payload)
+        payload["user_id"] = "a-sane-id"
+        user = func(**payload)
+        self.assertEqual(user.getId(), payload["user_id"])
+
+    def test_api_user_create_with_duplicated_user_id(self):
+        """Test api.user.create passing an existing user_id."""
+        func = api.user.create
+        user = self._make_one()
+        user_id = user.getId()
+        payload = deepcopy(self.user_payload)
+        payload["user_id"] = user_id
+        with self.assertRaises(api.exc.InvalidParameterError) as cm:
+            user = func(**payload)
+        self.assertIn(
+            "The login name you selected is already in use", str(cm.exception)
+        )
 
     def test_api_change_password(self):
         """Test api.user.change_password."""
