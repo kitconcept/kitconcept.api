@@ -26,6 +26,7 @@ def create(
     password: Optional[str] = None,
     roles: Iterable[str] = ("Member",),
     properties: Dict = None,
+    user_id: Optional[str] = None,
 ) -> MemberData:
     """Create a user.
 
@@ -37,6 +38,7 @@ def create(
     :param roles: User roles to assign to the new user.
     :param properties: User properties to assign to the new user. The list of
         available properties is available in ``portal_memberdata`` through ZMI.
+    :param user_id: User id to assign to the new user.
     :returns: Newly created user
     :raises:
         MissingParameterError
@@ -57,7 +59,7 @@ def create(
             "that is not email so you need to pass a username.",
         )
 
-    user_id = uuid4().hex
+    user_id = user_id if user_id else uuid4().hex
     # Generate a random 8-char password
     if not password:
         chars = string.ascii_letters + string.digits
